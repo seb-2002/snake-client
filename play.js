@@ -1,25 +1,11 @@
 const {connect} = require('./client')
-
-const setupInput = function () {
-  const stdin = process.stdin;
-  stdin.setRawMode(true);
-  stdin.setEncoding('utf8');
-  stdin.resume();
-  
-  const handleUserInput = function() {
-    stdin.on('data', (key) => {
-      if (key === "\u0003") {
-        process.exit();
-      }
-      return key;
-    })
-  }
-  
-  handleUserInput();
-  return stdin
-}
+const {setupInput} = require('./input')
 
 
 console.log('Connecting ...');
-connect();
-setupInput();
+setupInput(connect());
+
+
+// connect() is the return value of the 
+// function as defined in client.js
+// i.e net.createConnection({host: HOST, port: PORT})
